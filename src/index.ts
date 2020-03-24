@@ -1,18 +1,10 @@
-import Events from './events';
+import Player from './ts/player';
 
-class Player extends Events {
-  constructor() {
-    super();
-  }
-  play(test: string) {
-    this.emit('onPlay', test);
+declare global {
+  interface Window {
+    DemoPlayer: any;
   }
 }
 
-const player = new Player();
-
-player.on('onPlay', (test: any) => {
-  console.log(test);
-});
-
-player.play('testfff');
+window.DemoPlayer = Player;
+export default Player;
