@@ -1,10 +1,3 @@
-import Player from './ts/player';
+import PlayList from './ts/components/playlist/playlist';
 
-declare global {
-  interface Window {
-    DemoPlayer: any;
-  }
-}
-
-window.DemoPlayer = Player;
-export default Player;
+new PlayList({ render: document.querySelector('.root') });

@@ -20,5 +20,8 @@ export function formatTime(time: number): string {
 }
 
 export function getPercentage(portion: number, total: number): number {
+  if (portion <= 0) {
+    return 0;
+  }
   return Math.round((portion / total) * 100);
 }

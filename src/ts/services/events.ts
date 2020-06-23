@@ -1,10 +1,10 @@
-import { EventsInterface } from './interfaces/index';
+import { IEvent } from '../interfaces/index';
 
 type events = {
   [key: string]: any[];
 };
 
-export default class Events implements EventsInterface {
+export default class Events implements IEvent {
   private events: events;
   constructor() {
     this.events = {};
@@ -19,7 +19,7 @@ export default class Events implements EventsInterface {
 
   public emit(name: string, ...params: any[]): void {
     if (this.events[name]) {
-      this.events[name].forEach(fn => fn(...params));
+      this.events[name].forEach((fn) => fn(...params));
     }
   }
 }
