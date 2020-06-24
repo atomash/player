@@ -19,7 +19,7 @@ class Player {
   public $player: HTMLElement;
   public event: IEvent;
   public audio: HTMLAudioElement;
-  public isReplay: boolean;
+  public isRandom: boolean;
   public audioId: string;
 
   constructor(opt: { render: HTMLElement }) {
@@ -30,6 +30,7 @@ class Player {
     this.ctx = this.$canvas.getContext('2d');
     this.currentTimeRange = 0;
     this.volume = 0.5;
+    this.isRandom = false;
     this.currentTimeRangeHold = false;
     this.formattedDuration = '00:00';
     this.formattedCurrentTime = '00:00';
@@ -67,6 +68,9 @@ class Player {
     this.$player
       .querySelector('.replay-btn')
       .addEventListener('click', this.toggleReplay.bind(this));
+    this.$player
+      .querySelector('.random-btn')
+      .addEventListener('click', this.toggleRandom.bind(this));
 
     this.$player
       .querySelector('.next-btn')
@@ -75,9 +79,6 @@ class Player {
     this.$player
       .querySelector('.prev-btn')
       .addEventListener('click', () => this.event.emit('onPrev'));
-    // window.onload = function () {
-    //   thisPayer.createAudioContext();
-    // };
   }
 
   private endedAudio() {
@@ -86,7 +87,6 @@ class Player {
 
   private createAudioContext() {
     this.audio_ctx = new AudioContext();
-    console.log(this.audio_ctx);
     this.analyser = this.audio_ctx.createAnalyser();
     this.mediaSource = this.audio_ctx.createMediaElementSource(this.audio);
     this.mediaSource.connect(this.analyser);
@@ -244,6 +244,14 @@ class Player {
       const replayBtn = this.$player.querySelector<HTMLElement>('.replay-btn');
       replayBtn.style.color = this.audio.loop ? '#989898' : '#22211f';
       this.audio.loop = !this.audio.loop;
+    }
+  }
+
+  public toggleRandom() {
+    if (this.audio.duration) {
+      const replayBtn = this.$player.querySelector<HTMLElement>('.random-btn');
+      replayBtn.style.color = this.isRandom ? '#989898' : '#22211f';
+      this.isRandom = !this.isRandom;
     }
   }
 

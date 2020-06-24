@@ -11,7 +11,7 @@ export interface IPlayer {
   $player: HTMLElement;
   event: IEvent;
   audio: HTMLAudioElement;
-  isReplay: boolean;
+  isRandom: boolean;
   audioId: string;
 
   stop(): void;
@@ -19,6 +19,7 @@ export interface IPlayer {
   pause(): void;
   togglePlay(): void;
   toggleReplay(): void;
+  toggleRandom(): void;
   toggleMute(): void;
   setAudio(newAudio: { src: string; title: string }): void;
 }

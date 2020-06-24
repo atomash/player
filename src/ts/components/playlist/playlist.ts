@@ -68,9 +68,18 @@ class Playlist {
     });
 
     this.$myPlayer.event.on('onNext', () => {
+      if (this.$myPlayer.isRandom) {
+        return this.selectMusic(
+          this.musicData[
+            Math.floor(Math.random() * (this.musicData.length - 0) + 0)
+          ]
+        );
+      }
+
       const currentIndex = this.musicData.findIndex((e) => {
         return e.id.toString() === this.currentEl.el.dataset.id;
       });
+
       if (this.musicData.length > currentIndex + 1) {
         this.selectMusic(this.musicData[currentIndex + 1]);
       } else {
